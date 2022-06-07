@@ -7,11 +7,12 @@ composer install
 php yii migrate
 ~~~
 
-если нужно поменять версию composer
+создаем админа:
+~~~
+http://y-rbac.test/index.php?r=site/add-admin
+~~~
 
-~~~
-sudo composer self-update --2
-~~~
+если нужно поменять версию composer `sudo composer self-update --2`
 
 ### Apache2
 
