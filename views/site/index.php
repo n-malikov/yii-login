@@ -12,6 +12,11 @@ $this->title = 'My Yii Application';
         <p class="lead">You have successfully created your Yii-powered application.</p>
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+
+        <p><a href="/index.php?r=site/add-admin" class="btn btn-outline-secondary" target="_blank">create admin</a></p>
+
+        <p>Для проверки админ ли:</p>
+        <code>Yii::$app->user->getIdentity()->isAdmin()</code>
     </div>
 
     <div class="body-content">

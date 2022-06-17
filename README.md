@@ -1,4 +1,4 @@
-# Yii2 + RBAC
+# Yii2 + Login
 
 ~~~
 sudo chmod -R 777 runtime
@@ -9,24 +9,24 @@ php yii migrate
 
 создаем админа:
 ~~~
-http://y-rbac.test/index.php?r=site/add-admin
+http://yii-login.test/index.php?r=site/add-admin
 ~~~
 
 если нужно поменять версию composer `sudo composer self-update --2`
 
 ### Apache2
 
-создаем конфиг `y-rbac.conf` на сервере
+создаем конфиг `yii-login.conf` на сервере
 
 ~~~
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    ServerName y-rbac.test
-    ServerAlias www.y-rbac.test
-    DocumentRoot /var/www/y-rbac/web
-    ErrorLog /var/www/_logs/y-rbac/error.log
-    CustomLog /var/www/_logs/y-rbac/access.log combined
-    <Directory /var/www/y-rbac/web/>
+    ServerName yii-login.test
+    ServerAlias www.yii-login.test
+    DocumentRoot /var/www/yii-login/web
+    ErrorLog /var/www/_logs/yii-login/error.log
+    CustomLog /var/www/_logs/yii-login/access.log combined
+    <Directory /var/www/yii-login/web/>
         Options +FollowSymlinks
         AllowOverride All
         Require all granted
@@ -37,7 +37,7 @@ http://y-rbac.test/index.php?r=site/add-admin
 включаем
 
 ~~~
-sudo a2ensite y-rbac.conf
+sudo a2ensite yii-login.conf
 ~~~
 
 перезагружаем

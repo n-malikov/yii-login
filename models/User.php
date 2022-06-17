@@ -11,7 +11,8 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_USER    = 1;
+    const STATUS_ADMIN   = 10;
 
     /**
      * @return string
@@ -34,11 +35,11 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return array[]
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'default', 'value' => self::STATUS_USER],
+            ['status', 'in', 'range' => [self::STATUS_ADMIN, self::STATUS_USER, self::STATUS_DELETED]],
         ];
     }
 
@@ -47,7 +48,10 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::find()
+            ->where(['id'=>$id])
+            ->andwhere('status != :status', ['status'=>self::STATUS_DELETED] )
+            ->one();
     }
 
     /**
@@ -66,7 +70,10 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::find()
+            ->where(['username'=>$username])
+            ->andwhere('status != :status', ['status'=>self::STATUS_DELETED] )
+            ->one();
     }
 
     /**
@@ -120,5 +127,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function generateAuthKey()
     {
         $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return ($this->status === self::STATUS_ADMIN);
     }
 }
