@@ -14,6 +14,8 @@ http://yii-login.test/index.php?r=site/add-admin
 
 если нужно поменять версию composer `sudo composer self-update --2`
 
+если нужно кокретную миграцию `yii migrate/to m160202_195501_create_news_table`
+
 ### Apache2
 
 создаем конфиг `yii-login.conf` на сервере
